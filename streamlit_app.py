@@ -3,7 +3,6 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from snowflake.snowpark.context import get_active_session
 from snowflake.snowpark.functions import col
 
 # App title
@@ -15,7 +14,8 @@ name_on_order = st.text_input('Name on Smoothie:')
 st.write('The name on your Smoothie will be:', name_on_order)
 
 # Snowflake connection
-session = get_active_session()
+cnx = st.connection("snowflake") 
+session = cnx.session()
 
 my_dataframe = session.table(
     "smoothies.public.fruit_options"
